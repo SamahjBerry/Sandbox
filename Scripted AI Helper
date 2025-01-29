@@ -1,0 +1,82 @@
+#Define display_options function.
+def display_options(options):
+    for index, option in enumerate(options, start=1):
+        print(f"{index}. {option}")
+video_game_options = ['Roblox', 'Minecraft', 'Among Us']
+def game1 ():
+    Game1 = input('What game would you like to learn about?')
+    if Game1 =='1':
+        print('Roblox is a kids gaming platform that connects users to thousands of games')
+        game1 ()
+    elif Game1 =='2':
+        print('Minecraft is a sandbox like game with easy to understand mechanics.')
+        game1 ()
+    elif Game1 =='3':
+        print('Among us is a game based on a murder mystery type of gameplay')
+        game1()
+    else: 
+        print('Invalid input, try again!')#come back to this
+        game1()
+    #ExitC()
+#Define game_info function (your game1 function).
+def game1 ():
+    Game1 = input('What game would you like to learn about?')
+    if Game1 =='1':
+        print('Roblox is a kids gaming platform that connects users to thousands of games')
+    elif Game1 =='2':
+        print('Minecraft is a sandbox like game with easy to understand mechanics.')
+    elif Game1 =='3':
+        print('Among us is a game based on a murder mystery type of gameplay')
+    else: 
+        print('Invalid input, try again!')#come back to this
+    #ExitC()
+#Define topics function.
+def topics ():
+    print('Pick a topic to learn about')
+    T1 = input('1.Video Games (Pick a number) ')
+    if T1 =='1': 
+        display_options(video_game_options)
+        game1()
+    else:
+        print('Invalid Input')
+        topic()
+#Define start_conversation function.
+def start_conversation ():
+    name = input("What is your name? ") 
+    age = input("How old are you? ") 
+    print(f"Hello, {name}!") 
+    consent = input("Would you like to continue our conversations? (yes/no) ") 
+    if consent.lower() == 'no': 
+        print("Goodbye!") 
+    elif consent.lower() == 'yes':
+        help_response = input("Can I help you? (yes/no) ").strip().lower() 
+        if help_response.lower() == 'yes': 
+            topics()#This is where the topic function goes
+        
+        elif help_response == 'no':
+            print("Have a good day, goodbye.")
+            return
+        else: 
+            print('Invalid Input')
+            start_conversation
+    else: 
+        print ("Invalid Input")
+        start_conversation ()
+        
+#Define menu function.
+def menu ():
+    print('Below are instructions to navigatng this conversation')
+    print('1. Start conversation')
+    print('2. Exit')
+    choice = input('')
+    if choice == '1':
+        start_conversation()
+    
+    elif choice == '2':
+        print('Goodbye')
+        return
+    else:
+        print("Invalid input")
+        menu()
+#Call menu function
+menu()
