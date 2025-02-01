@@ -24,7 +24,7 @@ def help ():
     elif C1 == '2':
         F = float(input('What is the Temperature in Fahrenheit?'))
         FK = (F-32)*5/9 + 273.15 #KF = Kelvin -> Fahrenheit
-        FK = round(Fk,2)
+        FK = round(FK,2)
         print(f'When {F} degrees fahrenheit is converted to Kelvin it is {FK} Kelvin')
     elif C1 == '3':
         C = float(input('What is the temperature in Celcius?'))
@@ -52,5 +52,4 @@ def help ():
     else: 
         print('Invalid Input \nTry Again')
         help()
-    help ()
 help()
