@@ -1,0 +1,56 @@
+#"Help" Will make the user choose which conversion they want to do
+def intro ():
+    name = input('What is your name?')
+    print(f'Hello, {name} I can help you convert temperatures into different measurements.')
+    print('Here are the options!')
+    print('Fahrenheit to Celcius(1)')
+    print('Fahrenheit to Kelvin(2)')
+    print('Celcius to Fahrenheit(3)')
+    print('Celcius to Kelvin(4)')
+    print('Kelvin to Fahrenheit(5)')
+    print('Kelvin to Celcius(6)')
+    print('Exit(7)')
+intro ()
+
+def help ():
+    C1 = input('What conversion would you like to do?')
+    if C1 == '1':
+        #Celsius = (Fahrenheit - 32) x 5/9. 
+        #Make input asking for the temperature in F and return the number after putting it in the formula\
+        F = float(input('What is the Temperature in Fahrenheit?'))
+        FC = (F-32)*5/9#CF helps show the conversion CF = Celcius -> Fahrenheit
+        FC = round(FC,1)#This stops the number after 1 decimal place
+        print(f'When {F} degrees fahrenheit is converted to Celcius it is {FC} degrees Celcius')
+    elif C1 == '2':
+        F = float(input('What is the Temperature in Fahrenheit?'))
+        FK = (F-32)*5/9 + 273.15 #KF = Kelvin -> Fahrenheit
+        FK = round(Fk,2)
+        print(f'When {F} degrees fahrenheit is converted to Kelvin it is {FK} Kelvin')
+    elif C1 == '3':
+        C = float(input('What is the temperature in Celcius?'))
+        CF = (C*9/5) + 32
+        CF = round(CF,1)
+        print(f'When {C} degrees fahrenheit is converted into Fahrenheit it is {CF} degrees Fahrenheit')
+    elif C1 =='4':
+        C = float(input('What is the temperature in Celcius?'))
+        CK = (C+213.15)
+        CK = round(CK,2)
+        print(f'When {C} degrees Celcius is converted into Kelvin it is {CK} Kelvin')
+    elif C1 =='5':
+        K = float(input('What is the temperature in Kelvin'))
+        KF = (K - 273.15) * 9 / 5 + 32
+        KF = round(KF,2)
+        print(f'When {K} is converted into Fahrenheit it is {KF} degrees fahrenheit')
+    elif C1 == '6':
+        K = float(input('What is the temperature in Kelvin?'))
+        KC = (K - 213.15)
+        KC = round(KC,2)
+        print(f'When {K}Kelvin is converted to Fahrenheit it is {KC} degrees fahrenheit')
+    elif C1 == '7':
+        print('Ok,Goodbye')
+        return
+    else: 
+        print('Invalid Input \nTry Again')
+        help()
+    help ()
+help()
