@@ -1,0 +1,46 @@
+import random
+options = [
+    'Rock',
+    'Paper',
+    'Scissors'
+]
+RC = random.choice(options)
+RC1 = random.choice(options)
+def Rum ():
+  if UM == 'paper':
+    print('Paper beats rock, you lose!')
+  elif UM= 'rock: 
+    print('Draw,try again')
+  else:
+    print('Lose, please try again')
+def Sum ():
+  if UM == 'paper':
+    print('You win, play again!")
+  elif UM == 'rock':
+    print('You lose, try again')
+  else:
+    print('Draw, try again')
+def Pum ():
+  if UM == 'paper':
+    print('Draw, try again')
+  elif UM == 'rock':
+    print('You win')
+  else:
+    print('You lose!')
+def startc ():
+    name = input('What is your name?')
+    print(f'Hello {name}')
+    consent = input('Would you like to plack Rock, Paper Scissors?(yes/no)').lower.strip()
+    # make all of this a 'play' function
+    consent = input('Would you like to plack Rock, Paper Scissors?(yes/no)').lower.strip()
+    if consent = 'yes':
+def play
+    consent = input('Would you like to plack Rock, Paper Scissors?(yes/no)').lower.strip()
+    if consent = 'yes':
+        UM = input('What move would you like to play?').lower.strip()
+        if UM 
+        print(f'{RC}')
+        #create second varaiable and possibly make an if statement with the two
+        
+        
+#make functions that help determine the outcome of any 2 inputs(rock,paper,scissors)
