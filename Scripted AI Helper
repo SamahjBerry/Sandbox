@@ -5,7 +5,7 @@ def display_options(options):
 video_game_options = ['Roblox', 'Minecraft', 'Among Us']
 def game1 ():
     Game1 = input('What game would you like to learn about?')
-    if Game1 =='1':
+    if game1 =='1':
         print('Roblox is a kids gaming platform that connects users to thousands of games')
         game1 ()
     elif Game1 =='2':
@@ -19,7 +19,7 @@ def game1 ():
         game1()
     #ExitC()
 #Define game_info function (your game1 function).
-def game1 ():
+def Game1 ():
     Game1 = input('What game would you like to learn about?')
     if Game1 =='1':
         print('Roblox is a kids gaming platform that connects users to thousands of games')
@@ -39,7 +39,7 @@ def topics ():
         game1()
     else:
         print('Invalid Input')
-        topic()
+        topics()
 #Define start_conversation function.
 def start_conversation ():
     name = input("What is your name? ") 
@@ -58,10 +58,10 @@ def start_conversation ():
             return
         else: 
             print('Invalid Input')
-            start_conversation
+            start_conversation()
     else: 
         print ("Invalid Input")
-        start_conversation ()
+        start_conversation()
         
 #Define menu function.
 def menu ():
