@@ -4,28 +4,32 @@ options = [
     'Paper',
     'Scissors'
 ]
-RC1 = random.choice(options)
+#What happens if the code chooses rock
+#UM is 'User Move'
+#RC is 'Random Choice' (The move the code make)
 def Rum (UM):
   if UM == 'paper':
-    print('Paper beats rock, you lose!')
+    print('Paper beats rock, you win!')
   elif UM == 'rock': 
     print('Draw,try again')
   else:
-    print('Lose, please try again')
+    print('You Win, please try again')
+#what happens when the code picks scissors
 def Sum (UM):
   if UM == 'paper':
-    print('You win, play again!')
-  elif UM == 'rock':
-    print('You lose, try again')
-  else:
+    print('You lose, play again!')
+  elif  UM == 'rock':
+    print('You Win, try again')
+  else: 
     print('Draw, try again')
+#what happens when the code picks paper
 def Pum (UM):
   if UM == 'paper':
     print('Draw, try again')
   elif UM == 'rock':
-    print('You win')
+    print('You lose')
   else:
-    print('You lose!')
+    print('You Win!')
 def startc ():
     name = input('What is your name?')
     print(f'Hello {name}')
@@ -34,19 +38,19 @@ def startc ():
 def play():
     consent = input('Would you like to plack Rock, Paper Scissors?(yes/no)').strip().lower()
     while consent == 'yes':
-    RC = random.choice(options)
-        UM = input('What move would you like to play?(rock/paper/scissors)').strip().lower()
-        while UM not in ['rock', 'paper', 'scissors']:
-            UM = input(Invalid, try again')
-        print(f'You played {UM}')
-        print(f'I played {RC}')
-        if RC == 'paper':
+      RC = random.choice(options).lower()
+      UM = input('What move would you like to play?(rock/paper/scissors)').strip().lower()
+      while UM not in ['rock', 'paper', 'scissors']:
+            UM = input('Invalid, try again').strip().lower()
+      print(f'You played {UM}')
+      print(f'I played {RC}')
+      if RC == 'paper':
             Pum(UM)
             consent = input('Would you like to continue playing?')
-        elif RC == 'rock':
+      elif RC == 'rock':
             Rum(UM)
             consent = input('Would you like to continue playing?')
-        else:
+      else:
             Sum(UM)
             consent = input('Would you like to continue playing?')
         #create second varaiable and possibly make an if statement with the two
