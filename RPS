@@ -36,7 +36,7 @@ def startc ():
     play()
     # make all of this a 'play' function
 def play():
-    consent = input('Would you like to plack Rock, Paper Scissors?(yes/no)').strip().lower()
+    consent = input('Would you like to play Rock, Paper Scissors?(yes/no)').strip().lower()
     while consent == 'yes':
       RC = random.choice(options).lower()
       UM = input('What move would you like to play?(rock/paper/scissors)').strip().lower()
