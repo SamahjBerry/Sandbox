@@ -31,20 +31,17 @@ def startc ():
     print(f'Hello {name}')
     play()
     # make all of this a 'play' function
-def play
+def play():
     RC = random.choice(options)
     consent = input('Would you like to plack Rock, Paper Scissors?(yes/no)').strip().lower()
-    while True: 
-        if consent != 'yes':
-            print('Goodbye')
-            break
+    while consent == 'yes':
         UM = input('What move would you like to play?(rock/paper/scissors)').strip().lower()
         print(f'You played {UM}')
         print(f'I played {RC}')
-        if RC == 'paper'
+        if RC == 'paper':
             Pum(UM)
             consent = input('Would you like to continue playing?')
-        elif == 'rock'
+        elif == 'rock':
             Rum(UM)
             consent = input('Would you like to continue playing?')
         else:
