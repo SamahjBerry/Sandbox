@@ -13,7 +13,7 @@ def Rum (UM):
   elif UM == 'rock': 
     print('Draw,try again')
   else:
-    print('You Win, please try again')
+    print('You lose, please try again')
 #what happens when the code picks scissors
 def Sum (UM):
   if UM == 'paper':
