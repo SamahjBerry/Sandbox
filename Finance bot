@@ -1,0 +1,15 @@
+def BI ():
+  #BI = budget info, this includes salary, how much they want to save
+  #Factor in specific personal circumstances? f.e kids (suggestion)
+  PI = input('What is your yearly salary?')#PI = personal income 
+  BG = input('How much of this money do you want to save in the next 12 months?')
+  Difference = PI - BG
+  print(f'You have {Difference} amount of money to work with!')
+  Confirmation = input('Is the aforementioned information correct?')
+  if Confirmation = 'no':
+    BI()
+  else: 
+    return 
+BI()
+
+    
