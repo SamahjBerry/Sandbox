@@ -1,15 +1,41 @@
 def BI ():
   #BI = budget info, this includes salary, how much they want to save
   #Factor in specific personal circumstances? f.e kids (suggestion)
-  PI = input('What is your yearly salary?')#PI = personal income 
-  BG = input('How much of this money do you want to save in the next 12 months?')
+  PI = float(input('What is your yearly salary?'))#PI = personal income 
+  BG = float(input('How much of this money do you want to save in the next 12 months?'))
   Difference = PI - BG
   print(f'You have {Difference} amount of money to work with!')
-  Confirmation = input('Is the aforementioned information correct?')
-  if Confirmation = 'no':
+  Confirmation = input('Is the aforementioned information correct?').lower.strip()
+  if Confirmation == 'no':
     BI()
   else: 
     return 
 BI()
+#make two types of circumstances 'Fixed' and 'Changing'
+# this catergorizes broadly too make things more simple
+FC = [#FC = Fixed Circumstances
+  'Dependent(s)',
+  'Loan(s)',
+  'Rent',
+  'Mortgage',
+  'Utilities',
+]
+CC = [#CC = changing circumstances
+'Groceries',
+'Clothing',
+'Health Care',
+'Transportation',
+]
+def PC (): #PC = personal circumstances (dependents)
+  PCY = input('Do you have any dependents?(yes/no)')
+  if PCY ==  'yes':
+    NPCY = input('How many are older than 15?')
+  else:
+    return
+    Confirmation = input('Is the aforementioned information correct?').lower.strip()
+  if Confirmation == 'no':
+    PC()
+  else: 
+    return 
 
     
