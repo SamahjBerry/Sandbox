@@ -1,41 +1,99 @@
-def BI ():
-  #BI = budget info, this includes salary, how much they want to save
-  #Factor in specific personal circumstances? f.e kids (suggestion)
-  PI = float(input('What is your yearly salary?'))#PI = personal income 
-  BG = float(input('How much of this money do you want to save in the next 12 months?'))
-  Difference = PI - BG
-  print(f'You have {Difference} amount of money to work with!')
-  Confirmation = input('Is the aforementioned information correct?').lower.strip()
-  if Confirmation == 'no':
-    BI()
-  else: 
-    return 
-BI()
-#make two types of circumstances 'Fixed' and 'Changing'
-# this catergorizes broadly too make things more simple
-FC = [#FC = Fixed Circumstances
-  'Dependent(s)',
-  'Loan(s)',
-  'Rent',
-  'Mortgage',
-  'Utilities',
+fixed_circumstances = [
+    'Dependent(s)',
+    'Loan(s)',
+    'Rent',
+    'Mortgage',
+    'Utilities'
 ]
-CC = [#CC = changing circumstances
-'Groceries',
-'Clothing',
-'Health Care',
-'Transportation',
-]
-def PC (): #PC = personal circumstances (dependents)
-  PCY = input('Do you have any dependents?(yes/no)')
-  if PCY ==  'yes':
-    NPCY = input('How many are older than 15?')
-  else:
-    return
-    Confirmation = input('Is the aforementioned information correct?').lower.strip()
-  if Confirmation == 'no':
-    PC()
-  else: 
-    return 
 
-    
+changing_circumstances = [
+    'Groceries',
+    'Clothing',
+    'Health Care',
+    'Transportation'
+]
+
+from states_avg_tax import us_states 
+from states_avg_tax import tax_rates_income
+def taxes():
+    while True:
+        location = input('What state are you a resident of?').title().strip()
+        if location in tax_rates_income:
+            while True:
+                filing_status = input('What maritial staus do you file taxes under(single/married)?').lower().strip()
+                if filing_status in tax_rates_income[location]:
+                    tax_bracket = tax_rates_income[location][filing_status]
+                    print(f'The tax rate for {location} {filing_status} filers has been retrieved')
+                    return tax_bracket
+                else:
+                    print('Invalid filing status')
+        else:
+            print('State not found')
+
+def personal_income(tax_bracket):  # Use tax_rate as an argument
+    while True:
+        try:
+            total_tax = 0
+            income = float(input('what is ypur slary?'))
+            for bracket in tax_bracket: #bracket takes on each key in the tax brackets
+                range_start,range_end = bracket #range start is the minimum amount of income for a tax bracket and vice versa for range_end
+                if income > range_start:# check if the income is greater than the minimum number of each tax bracket
+                    income_in_bracket = min(income,range_end) - range_start #this calculates the remaining income within each bracket, if the income is larger than range end it moves to the next bracket
+                    total_tax += income_in_bracket * tax_bracket[bracket] #taxes total to the income within a certain bracket * the tax percent = the amount take in taxes
+            #income = float(input('What is your salary?'))
+            #income_tax = income - (income * tax_bracket / 100)  # Calculate income after tax
+            income_tax = income - total_tax
+            print(f'Your income after taxes is ${income_tax}')  # Display income after tax
+            return income_tax
+        except ValueError:
+            print('Invalid input, Try again')
+
+def budget_goal(income_tax):  # Use income_tax
+    while True:
+        try:
+            goal = float(input(f'Your salary after taxes is ${income_tax} \nHow much money do you want to save this year?'))
+            difference = income_tax - goal
+            print(f'You have ${difference} to work with!')
+            return goal
+        except ValueError:
+            print('Invalid input, Try again')
+
+def specific_circumstances():
+    Dependents = input('Do you have any dependents?').lower().strip()
+    if Dependents == 'yes':
+        NDependents = float(input('How many do you have?'))
+
+def expenses():
+    FCE = CCE = OFO = 0
+    for index, category in enumerate(fixed_circumstances):
+        print(f"{index + 1}. {category}")
+    try:
+        FCE = float(input('How much do you spend on the aforementioned expenses (monthly)?'))
+        for index, category in enumerate(changing_circumstances):
+            print(f"{index + 1}. {category}")
+        CCE = float(input('How much do you spend on the aforementioned expenses?'))
+        OFO = float(input('Do you have any other financial obligations? \nIf you do, what do they amount to? \nIf this is not applicable, enter 0 '))
+        monthly_expenses = FCE + CCE + OFO
+        print(f'Your monthly expenses amount to ${monthly_expenses}')
+        return monthly_expenses
+    except ValueError:
+        print('Invalid input, Try again')
+
+def MBM(): #month by month expenses
+    tax_bracket = taxes()
+    income1 = personal_income(tax_bracket)  # Pass tax_rate to personal_income
+    goal1 = budget_goal(income1)
+    dependents1 = specific_circumstances()
+    monthly_expenses = expenses()
+    yearly_difference = income1 - goal1
+    monthly_difference = yearly_difference / 12
+    monthly_difference = round(monthly_difference, 2)
+    print(f'To stay within budget, you must spend the same or less than ${monthly_difference} every month.')
+    extreme = input('Is this budget too small for your needs? (yes/no)').lower().strip()
+    if extreme == 'yes':
+        MBM()
+
+def main():
+    MBM()
+
+main()
