@@ -1,1 +1,18 @@
+def generator2 ():
+    acronym = input('Enter Phrase Here').strip().upper()# remove spaces and uppercase all letters
+    new = acronym.split() #seperates the words by spaces
+    for word in new:# I want to cycle through the words
+        if len(word) <= 3: #Check if they are less than or equal to 3 (of/and)
+            
+    if acronym == '':
+        print('No input detected, please try again')
+        generator2()
+    acro = ''# stores the acronym
+    for new in new: # this looks at each word in the input
+        acro += new[0] #new[0] = the first letter of each word
+    print(f'{acro}')
+    again = input('Would you like to enter another?(yes/no)').strip().lower()
+    if again == 'yes':
+        generator2()
+generator2()
 
