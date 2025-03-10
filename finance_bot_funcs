@@ -1,0 +1,162 @@
+fixed_circumstances = [
+    'Dependent(s)',
+    'Loan(s)',
+    'Rent',
+    'Mortgage',
+    'Utilities'
+]
+
+changing_circumstances = [
+    'Groceries',
+    'Clothing',
+    'Health Care',
+    'Transportation'
+]
+
+from states_avg_tax import tax_rates_income
+
+def taxes():
+    while True:
+        location = input('What state are you a resident of?').title().strip()
+        if location in tax_rates_income:
+            while True:
+                filing_status = input('What marital status do you file taxes under (single/married)?').lower().strip()
+                if filing_status in tax_rates_income[location]:
+                    tax_bracket = tax_rates_income[location][filing_status]
+                    print(f'The tax rate for {location} {filing_status} filers has been retrieved')
+                    return tax_bracket
+                else:
+                    print('Invalid filing status')
+        else:
+            print('State not found')
+
+def personal_income(tax_bracket):  # Use tax_rate as an argument
+    while True:
+        try:
+            total_tax = 0
+            income = float(input('What is your salary?')) 
+            for bracket in tax_bracket:  # bracket takes on each key in the tax brackets
+                range_start, range_end = bracket  # range start is the minimum amount of income for a tax bracket and vice versa for range_end
+                if income > range_start:  # check if the income is greater than the minimum number of each tax bracket
+                    income_in_bracket = min(income, range_end) - range_start  # this calculates the remaining income within each bracket, if the income is larger than range end it moves to the next bracket
+                    total_tax += income_in_bracket * tax_bracket[bracket]  # taxes total to the income within a certain bracket * the tax percent = the amount take in taxes
+            income_tax = income - total_tax  # Calculate income after tax
+            print(f'Your income after taxes is ${income_tax}')  # Display income after tax
+            return income_tax
+        except ValueError:
+            print('Invalid input, Try again')
+
+def budget_goal(income_tax):  # Use income_tax
+    while True:
+        try:
+            goal = float(input(f'Your salary after taxes is ${income_tax} \nHow much money do you want to save this year?'))
+            difference = income_tax - goal
+            print(f'You have ${difference} to work with!')
+            return goal
+        except ValueError:
+            print('Invalid input, Try again')
+
+def specific_circumstances():
+    Dependents = input('Do you have any dependents?').lower().strip()
+    if Dependents == 'yes':
+        NDependents = float(input('How many do you have?'))
+
+def expenses():
+    FCE = CCE = OFO = 0
+    for index, category in enumerate(fixed_circumstances):
+        print(f"{index + 1}. {category}")
+    try:
+        FCE = float(input('How much do you spend on the aforementioned expenses (monthly)?'))
+        for index, category in enumerate(changing_circumstances):
+            print(f"{index + 1}. {category}")
+        CCE = float(input('How much do you spend on the aforementioned expenses?'))
+        OFO = float(input('Do you have any other financial obligations? \nIf you do, what do they amount to? \nIf this is not applicable, enter 0 '))
+        monthly_expenses = FCE + CCE + OFO
+        print(f'Your monthly expenses amount to ${monthly_expenses}')
+        return monthly_expenses
+    except ValueError:
+        print('Invalid input, Try again')
+
+def customizable_goal():
+    while True:
+        try:
+            Cgoal = input('Do you have specific financial goals? \nF.E Vacation, New Car, Expensive Miscellaneous Items\n')  # Added missing newline at the end for clarity
+            if Cgoal.lower() == 'yes':
+                what_goal = input('What is it you are saving for?\n')  
+                time = float(input(f'How long will saving for {what_goal} take (in months)?\n'))  # Added missing closing parenthesis and newline
+                amount = float(input(f'How much will {what_goal} cost in its entirety?\n'))
+                saving_per_month = amount / time
+                return what_goal, saving_per_month
+            elif Cgoal.lower() == 'no':
+                print('No extra goals set')
+                return None, None
+        except ValueError:
+            print('Invalid input, Try again')
+def calculate_disposable_income(FCE, CCE, OFO, income1, goal1): 
+    monthly_expenses = expenses()
+    yearly_difference = income1 - goal1
+    monthly_difference = yearly_difference / 12
+    monthly_difference = round(monthly_difference, 2)
+    disposable_income = float(monthly_difference - monthly_expenses) 
+    if disposable_income < 0:
+        disposable_income = 0
+    print(f'{monthly_expenses}')
+    print(f'To stay within budget, you must spend the same or less than ${monthly_difference} every month.')
+    print(f'After expenses your remaining monthly budget is ${disposable_income}')
+    return disposable_income
+def MBM(FCE, CCE, OFO, customizable_goal, what_goal = None, savings_needed = 0):  # month by month expenses
+    #calculate income after taxes
+    tax_bracket = taxes()
+    income1 = personal_income(tax_bracket)  # Pass tax_rate to personal_income
+    # helps budget their after tax income
+    goal1 = budget_goal(income1)
+    #ask for dependents
+    specific_circumstances()
+    #implements the previous info into a comprehensible savings plan
+    disposable_income = calculate_disposable_income(FCE, CCE, OFO, income1, goal1)
+    select_savings_plan(disposable_income)
+    extreme = input('Is this budget too small for your needs? (yes/no)').lower().strip()
+    if extreme == 'yes':
+        MBM(FCE, CCE, OFO, customizable_goal, what_goal)
+def savings_plan():
+    print('There are several diffrent methods in which people save \n Different levels of income is better for different plans')
+    different_plans = [
+    '50% Saved, 30% needs, 20% wants',
+    '80% needs and wants, 20% savings',
+    '70% saved, 20% needs, 10% wants'
+    ]
+    for index, category in enumerate(different_plans):
+        print(f"{index + 1}. {category}")
+def select_savings_plan(disposable_income):
+    savings_plan()
+    while True:
+        try:
+            select_plan = int(input('Select one of the aforementioned plans(1-3)'))
+            print('Plan 1 works best with a moderate level of income \n Plan 2 works best with a much tighter budget \n Plan 3 work best with a large excess of income')
+            if select_plan == 1:
+                monthly_savings = disposable_income * 0.50
+                monthly_wants = disposable_income * 0.20
+                monthly_needs = disposable_income * 0.30
+                print(f'Considering your disposable income you should try to save ${monthly_savings: .2f} every month \n You should try to spend{monthly_needs: .2f} on your needs every month \n You should try to spend {monthly_wants: .2f} on your wants every month')
+                break
+            elif select_plan == 2:
+                monthly_savings = disposable_income * 0.20
+                monthly_needs = disposable_income * 0.80
+                print(f'Considering your disposable income you should try to save ${monthly_savings: .2f} every month \n You should try to spend{monthly_needs: .2f} on your needs every month')
+                break
+            elif select_plan == 3:
+                monthly_savings = disposable_income * 0.70
+                monthly_needs = disposable_income * 0.20
+                monthly_wants = disposable_income * 0.10
+                print(f'Considering your disposable income you should try to save ${monthly_savings: .2f} every month \n You should try to spend{monthly_needs: .2f} on your needs every month \n You should try to spend {monthly_wants: .2f} on your wants every month')
+                break
+            else:
+                print('Enter a number between 1-3')
+        except ValueError:
+            return 'Enter a number (1-3)'
+def main():
+    FCE = CCE = OFO = 0
+    MBM(FCE, CCE, OFO, customizable_goal, what_goal = None, savings_needed = 0)
+    what_goal, savings_needed = customizable_goal()
+    
+main()
